@@ -1,21 +1,26 @@
 <h1>RTOS</h1>
 
+<br>
 <h2>O que é RTOS?</h2>
 
 <p>RTOS significa "Real-Time Operating System" (Sistema Operacional de Tempo Real). É um tipo de sistema operacional projetado para suportar aplicações em tempo real, onde as tarefas precisam ser executadas dentro de prazos estritos e previsíveis.
 
+<br>
 <h2>O que é a multitarefa no RTOS?</h2>
 
 <p>Multitarefa no RTOS refere-se à capacidade do sistema operacional de executar várias tarefas concorrentemente. No contexto do RTOS, as tarefas são pequenos programas ou threads que executam funções específicas. O RTOS permite que essas tarefas sejam executadas de forma intercalada ou simultânea, compartilhando os recursos do sistema de forma eficiente. O RTOS é responsável por atribuir prioridades às tarefas e determinar quando cada tarefa deve ser executada.
 
+<br>
 <h2>O que é a sincronização de tarefas no RTOS?</h2>
 
 <p>Sincronização de tarefas é o processo de coordenar a execução de tarefas em um ambiente multitarefa. Quando várias tarefas compartilham recursos, como memória, dispositivos de E/S ou variáveis compartilhadas, é necessário sincronizar suas operações para evitar condições de corrida, inconsistências ou erros. A sincronização de tarefas envolve o uso de mecanismos como semáforos, mutexes e filas para controlar o acesso e garantir a consistência dos dados.
 
+<br>
 <h2>Reação em tempo real:</h2>
 
 <p>Utilizando a variável volátil e global 'temperature', podemos exibir no LCD o valor calculado da temperatura e também, caso os valor seja igual a 26.00, acender o LED verde. Todo esse processo das funções (ou tarefas) ocorre simultaneamente, de acordo com a prioridade de cada tarefa. 
 
+<br>
 <h2>Vantagens do uso do RTOS:</h2>
 
 <ol>
@@ -32,6 +37,7 @@
 <li>Confiabilidade: Os RTOS são projetados para serem robustos e confiáveis, permitindo a detecção e recuperação de erros.</li>
 </ol>
 
+<br>
 <h2>Código e Circuito:</h2>
 
     #include <Arduino.h>
@@ -59,30 +65,30 @@
         pinMode(LED_1, OUTPUT);
         pinMode(LED_2, OUTPUT);
 
-    // Tarefas:
-    xTaskCreate(
-        TaskReadTemperature,
-        "ReadTemperature",
-        128,
-        NULL,
-        3,
-        NULL);
+        // Tarefas:
+            xTaskCreate(
+            TaskReadTemperature,
+            "ReadTemperature",
+            128,
+            NULL,
+            3,
+            NULL);
 
-    xTaskCreate(
-        TaskLed1,
-        "Led1",
-        128,
-        NULL,
-        3,
-        NULL);
+        xTaskCreate(
+            TaskLed1,
+            "Led1",
+            128,
+            NULL,
+            3,
+            NULL);
 
-    xTaskCreate(
-        TaskLedTemp,
-        "LedTemp",
-        128,
-        NULL,
-        3,
-        NULL);
+        xTaskCreate(
+            TaskLedTemp,
+            "LedTemp",
+            128,
+            NULL,
+            3,
+            NULL);
     }
 
     void loop()
