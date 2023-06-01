@@ -20,15 +20,15 @@
 
 <ol>
 <li>Determinismo: O RTOS fornece garantias temporais, permitindo que as tarefas sejam executadas dentro de prazos previsíveis. Isso é fundamental para aplicações em tempo real, onde a resposta rápida é essencial.</li>
-
+<br>
 <li>Multitarefa: O RTOS permite a execução de várias tarefas concorrentemente, compartilhando eficientemente os recursos do sistema.</li>
-
+<br>
 <li>Escalabilidade: Os RTOS são projetados para suportar sistemas embarcados de diferentes tamanhos e complexidades. Eles podem ser configurados para atender às necessidades específicas de uma aplicação, permitindo um uso eficiente de recursos.</li>
-
+<br>
 <li>Sincronização e comunicação: Os RTOS fornecem mecanismos de sincronização e comunicação entre tarefas, facilitando a coordenação e o compartilhamento de informações.</li>
-
+<br>
 <li>Preemptividade: Os RTOS preemptivos permitem que tarefas de alta prioridade interrompam tarefas de baixa prioridade, garantindo a execução de tarefas críticas em tempo hábil.</li>
-
+<br>
 <li>Confiabilidade: Os RTOS são projetados para serem robustos e confiáveis, permitindo a detecção e recuperação de erros.</li>
 </ol>
 
@@ -53,11 +53,11 @@
 
     void setup()
     {
-    Serial.begin(9600);
-    lcd.begin(16, 2);
+        Serial.begin(9600);
+        lcd.begin(16, 2);
 
-    pinMode(LED_1, OUTPUT);
-    pinMode(LED_2, OUTPUT);
+        pinMode(LED_1, OUTPUT);
+        pinMode(LED_2, OUTPUT);
 
     // Tarefas:
     xTaskCreate(
@@ -87,52 +87,52 @@
 
     void loop()
     {
-    // Nada aqui!
+        // Nada aqui!
     }
 
     void TaskReadTemperature(void *pvParameters)
     {
 
-    (void)pvParameters;
-    float sensorValue = 0.0;
-    for (;;)
-    {
-        // Aqui você normalmente leria o valor do sensor de temperatura, mas por simplicidade, vamos apenas simular um valor para a temperatura, variando de -10 a 40.
+        (void)pvParameters;
+        float sensorValue = 0.0;
+        for (;;)
+        {
+            // Aqui você normalmente leria o valor do sensor de temperatura, mas por simplicidade, vamos apenas simular um valor para a temperatura,                    variando de -10 a 40.
 
-        sensorValue = -10.0 + (rand() % 51); // Gera um número aleatório entre -10 e 40.
-        temperature = sensorValue;
-        vTaskDelay(2000 / portTICK_PERIOD_MS); // Aguarda por 2 segundos.
-        lcd.setCursor(0, 0);
-        lcd.print("Temp: ");
-        lcd.print(temperature);
-        lcd.print(" C");
-    }
+            sensorValue = -10.0 + (rand() % 51); // Gera um número aleatório entre -10 e 40.
+            temperature = sensorValue;
+            vTaskDelay(2000 / portTICK_PERIOD_MS); // Aguarda por 2 segundos.
+            lcd.setCursor(0, 0);
+            lcd.print("Temp: ");
+            lcd.print(temperature);
+            lcd.print(" C");
+        }
     }
   
     void TaskLed1(void *pvParameters)
     {
 
-    (void)pvParameters;
-    for (;;)
-    {
-        digitalWrite(LED_1, HIGH);
-        vTaskDelay(500 / portTICK_PERIOD_MS);
-        digitalWrite(LED_1, LOW);
-        vTaskDelay(500 / portTICK_PERIOD_MS);
-    }
+        (void)pvParameters;
+        for (;;)
+        {
+            digitalWrite(LED_1, HIGH);
+            vTaskDelay(500 / portTICK_PERIOD_MS);
+            digitalWrite(LED_1, LOW);
+            vTaskDelay(500 / portTICK_PERIOD_MS);
+        }
     }
 
     void TaskLedTemp(void *pvParameters)
     {
-    (void)pvParameters;
-    for (;;)
-    {
-        if (temperature == 26.00)
+        (void)pvParameters;
+        for (;;)
         {
-            vTaskDelay(2000 / portTICK_PERIOD_MS);
-            digitalWrite(LED_2, HIGH);
+            if (temperature == 26.00)
+            {
+                vTaskDelay(2000 / portTICK_PERIOD_MS);
+                digitalWrite(LED_2, HIGH);
+            }
         }
-    }
     }
 
 ![image](https://github.com/MatheusChiapetti/RTOS/assets/110207330/2736a044-d050-47e1-8e7d-340928c914cd)
